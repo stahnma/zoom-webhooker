@@ -6,7 +6,7 @@ gem "sinatra"
 gem "thin"
 gem "rake"
 gem "ruby-kafka"
-gem "active_support"
+gem "activesupport"
 
 # Development
 gem "awesome_print"
