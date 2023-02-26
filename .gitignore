@@ -2,3 +2,6 @@ Gemfile.lock
 vendor
 config/config.yml
 .environment
+log/*
+kafka/build_cache
+kafka/kafka

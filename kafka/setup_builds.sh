@@ -7,13 +7,20 @@ target_filename="kafka_${scala_version}-${kafka_version}.tgz"
 
 download_location="https://downloads.apache.org/kafka"
 
-curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}"
-curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}.sha512"
-curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}.asc"
+cache_dir=build_cache
+
+
+mkdir -p "${cache_dir}"
+pushd "${cache_dir}"
+#curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}"
+#curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}.sha512"
+#curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}.asc"
 
 # TODO Better than nothing but we should also check the signature
 if gpg --print-md SHA512 "${target_filename}" | diff - "${target_filename}.sha512" ; then
   tar zxf "${target_filename}"
+  directory=`echo "${target_filename}" | awk -F.tgz '{print $1}'`
+  ln -sf "${cache_dir}/${directory}" ../kafka
 else
   echo "ERROR: Checksum mismatch"
   exit 1
