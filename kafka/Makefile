@@ -1,9 +1,16 @@
 NAME=kafka
 
-clean:
-	sudo rm -rf Gemfile.lock vendor
+.PHONY: kafka clean run shell image
 
-image:
+clean:
+	sudo rm -rf Gemfile.lock vendor kafka
+
+kafka:
+	./setup_builds.sh
+
+
+image: kafka
+	test -d kafka || echo "You need to run kafka/setup.sh" 
 	docker build  -t $(NAME) .
 
 run:

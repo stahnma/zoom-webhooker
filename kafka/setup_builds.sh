@@ -12,9 +12,15 @@ cache_dir=build_cache
 
 mkdir -p "${cache_dir}"
 pushd "${cache_dir}"
-#curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}"
-#curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}.sha512"
-#curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${target_filename}.asc"
+
+for file in "${target_filename}" "${target_filename}.sha512" "${target_filename}.asc"
+do
+	if [ ! -f "${file}" ] ; then
+	  curl --silent --remote-name --location "${download_location}"/"${kafka_version}"/"${file}"
+	fi
+
+done
+
 
 # TODO Better than nothing but we should also check the signature
 if gpg --print-md SHA512 "${target_filename}" | diff - "${target_filename}.sha512" ; then
