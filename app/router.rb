@@ -10,7 +10,7 @@ require 'active_support'
 set :bind, '0.0.0.0'
 set :public_folder, __dir__ + '/public'
 
-config = ActiveSupport::ConfigurationFile.parse('config/database.yml')
+config = ActiveSupport::ConfigurationFile.parse('config/config.yml')
 
 #set :environment, :production
 
@@ -29,7 +29,6 @@ post '/' do
   request.body.rewind
   request_payload = JSON.parse(request.body.read)
   puts request_payload
-
   if request_payload['event'] == 'endpoint.url_validation'
     content_type :json
     crc = {}
