@@ -1,4 +1,3 @@
-queue_host:
-queue_topic:
 zoom_secret: : <%= ENV['ZOOM_SECRET'] %>
-webhook_uri:
+webhook_uri: : 
+slack_webhook_uri: <%= ENV['ZOOM_WH_SLACK_WH_URI'] %>
