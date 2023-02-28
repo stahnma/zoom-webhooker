@@ -8,7 +8,6 @@ images: image
 
 image:
 	docker build  -t zoomwh .
-	make -C kafka image
 
 run:
 	test -f .environment || exit 5
